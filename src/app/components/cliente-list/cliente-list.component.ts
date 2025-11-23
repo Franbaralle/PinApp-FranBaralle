@@ -16,8 +16,7 @@ export class ClienteListComponent implements OnInit {
   mostrarModal = false;
   
   filtroNombre = '';
-  filtroEdadMin = '';
-  filtroEdadMax = '';
+  filtroEdad = '';
   
   ordenActual: 'nombre' | 'apellido' | 'edad' | 'fecha' = 'nombre';
   ordenAscendente = true;
@@ -51,14 +50,9 @@ export class ClienteListComponent implements OnInit {
       );
     }
 
-    if (this.filtroEdadMin) {
-      const edadMin = parseInt(this.filtroEdadMin);
-      resultado = resultado.filter(cliente => cliente.edad >= edadMin);
-    }
-
-    if (this.filtroEdadMax) {
-      const edadMax = parseInt(this.filtroEdadMax);
-      resultado = resultado.filter(cliente => cliente.edad <= edadMax);
+    if (this.filtroEdad) {
+      const edad = parseInt(this.filtroEdad);
+      resultado = resultado.filter(cliente => cliente.edad === edad);
     }
 
     this.clientesFiltrados = resultado;
@@ -120,8 +114,7 @@ export class ClienteListComponent implements OnInit {
 
   limpiarFiltros(): void {
     this.filtroNombre = '';
-    this.filtroEdadMin = '';
-    this.filtroEdadMax = '';
+    this.filtroEdad = '';
     this.aplicarFiltros();
   }
 

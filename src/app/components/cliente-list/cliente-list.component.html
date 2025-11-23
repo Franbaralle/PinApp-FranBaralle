@@ -38,26 +38,15 @@
       </div>
 
       <div class="filtro-group">
-        <label for="filtroEdadMin">Edad Mínima</label>
+        <label for="filtroEdad">Edad</label>
         <input
           type="number"
-          id="filtroEdadMin"
-          [(ngModel)]="filtroEdadMin"
+          id="filtroEdad"
+          [(ngModel)]="filtroEdad"
           (ngModelChange)="aplicarFiltros()"
-          placeholder="Min"
-          min="0"
-        />
-      </div>
-
-      <div class="filtro-group">
-        <label for="filtroEdadMax">Edad Máxima</label>
-        <input
-          type="number"
-          id="filtroEdadMax"
-          [(ngModel)]="filtroEdadMax"
-          (ngModelChange)="aplicarFiltros()"
-          placeholder="Max"
-          min="0"
+          placeholder="Edad"
+          min="1"
+          max="120"
         />
       </div>
 

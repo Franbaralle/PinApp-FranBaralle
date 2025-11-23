@@ -73,8 +73,7 @@ describe('ClienteListComponent', () => {
 
     it('should initialize filters with default values', () => {
       expect(component.filtroNombre).toBe('');
-      expect(component.filtroEdadMin).toBe('');
-      expect(component.filtroEdadMax).toBe('');
+      expect(component.filtroEdad).toBe('');
     });
 
     it('should initialize sorting with default values', () => {
@@ -141,38 +140,37 @@ describe('ClienteListComponent', () => {
       expect(component.clientesFiltrados[0].nombre).toBe('Juan');
     });
 
-    it('should filter by minimum age', () => {
-      component.filtroEdadMin = '30';
+    it('should filter by exact age', () => {
+      component.filtroEdad = '30';
       component.aplicarFiltros();
       
-      expect(component.clientesFiltrados.length).toBe(2); // Juan (30) y Carlos (40)
-      expect(component.clientesFiltrados.every(c => c.edad >= 30)).toBeTruthy();
+      expect(component.clientesFiltrados.length).toBe(1); // Solo Juan (30)
+      expect(component.clientesFiltrados[0].edad).toBe(30);
     });
 
-    it('should filter by maximum age', () => {
-      component.filtroEdadMax = '30';
+    it('should filter by exact age', () => {
+      component.filtroEdad = '30';
       component.aplicarFiltros();
       
-      expect(component.clientesFiltrados.length).toBe(2); // Juan (30) y María (25)
-      expect(component.clientesFiltrados.every(c => c.edad <= 30)).toBeTruthy();
+      expect(component.clientesFiltrados.length).toBe(1); // Solo Juan (30)
+      expect(component.clientesFiltrados[0].edad).toBe(30);
     });
 
-    it('should filter by age range', () => {
-      component.filtroEdadMin = '25';
-      component.filtroEdadMax = '35';
+    it('should return empty array when age does not match', () => {
+      component.filtroEdad = '99';
       component.aplicarFiltros();
       
-      expect(component.clientesFiltrados.length).toBe(2); // Juan (30) y María (25)
-      expect(component.clientesFiltrados.every(c => c.edad >= 25 && c.edad <= 35)).toBeTruthy();
+      expect(component.clientesFiltrados.length).toBe(0);
     });
 
     it('should combine multiple filters', () => {
-      component.filtroNombre = 'a';
-      component.filtroEdadMin = '30';
+      component.filtroNombre = 'Juan';
+      component.filtroEdad = '30';
       component.aplicarFiltros();
       
-      // Debe filtrar clientes que contengan 'a' Y tengan edad >= 30
-      expect(component.clientesFiltrados.length).toBe(2); // Juan (30) y Carlos (40)
+      // Debe filtrar clientes con nombre 'Juan' Y edad 30
+      expect(component.clientesFiltrados.length).toBe(1);
+      expect(component.clientesFiltrados[0].nombre).toBe('Juan');
     });
 
     it('should return all clientes when no filters are applied', () => {
@@ -185,14 +183,12 @@ describe('ClienteListComponent', () => {
   describe('Clear Filters', () => {
     it('should reset all filters', () => {
       component.filtroNombre = 'Juan';
-      component.filtroEdadMin = '25';
-      component.filtroEdadMax = '35';
+      component.filtroEdad = '30';
       
       component.limpiarFiltros();
       
       expect(component.filtroNombre).toBe('');
-      expect(component.filtroEdadMin).toBe('');
-      expect(component.filtroEdadMax).toBe('');
+      expect(component.filtroEdad).toBe('');
     });
 
     it('should show all clientes after clearing filters', () => {
@@ -336,19 +332,18 @@ describe('ClienteListComponent', () => {
   describe('Integration', () => {
     it('should recalculate statistics after filtering', () => {
       component.todosClientes = clientesMock;
-      component.filtroEdadMin = '30';
+      component.filtroEdad = '30';
       
       component.aplicarFiltros();
       
-      // Solo Juan (30) y Carlos (40)
-      const expectedAverage = (30 + 40) / 2;
-      expect(component.promedioEdad).toBe(expectedAverage);
+      // Solo Juan (30)
+      expect(component.promedioEdad).toBe(30);
     });
 
     it('should maintain sort order after filtering', () => {
       component.todosClientes = clientesMock;
       component.ordenarPor('edad');
-      component.filtroEdadMin = '25';
+      component.filtroNombre = 'a'; // Filtra Juan, María, Carlos
       component.aplicarFiltros();
       
       // Debería estar ordenado por edad ascendente
