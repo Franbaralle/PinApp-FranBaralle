@@ -1,0 +1,98 @@
+@import '../styles/variables';
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.app-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: $bg-light;
+}
+
+.navbar {
+  @include gradient-bg;
+  color: white;
+  padding: $spacing-md $spacing-xl;
+  box-shadow: $shadow-md;
+}
+
+.nav-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  @include flex-between;
+  flex-wrap: wrap;
+  gap: $spacing-md;
+}
+
+.app-title {
+  margin: 0;
+  font-size: $font-size-xl;
+  font-weight: $font-weight-semibold;
+}
+
+.nav-links {
+  display: flex;
+  gap: $spacing-lg;
+
+  a {
+    color: white;
+    text-decoration: none;
+    padding: $spacing-sm $spacing-md;
+    border-radius: $border-radius-sm;
+    transition: background-color 0.3s;
+    font-weight: $font-weight-medium;
+
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    &.active {
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+  }
+}
+
+.main-content {
+  flex: 1 0 auto;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.footer {
+  background-color: $text-primary;
+  color: white;
+  text-align: center;
+  padding: $spacing-md;
+  flex-shrink: 0;
+
+  p {
+    margin: 0;
+    font-size: $font-size-sm;
+  }
+}
+
+@media (max-width: $breakpoint-tablet) {
+  .nav-content {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .nav-links {
+    flex-direction: column;
+    width: 100%;
+
+    a {
+      width: 100%;
+    }
+  }
+
+  .main-content {
+    padding: $spacing-md $spacing-sm;
+  }
+}
+

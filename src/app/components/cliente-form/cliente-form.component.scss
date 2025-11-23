@@ -1,0 +1,94 @@
+@import '../../../styles/variables';
+
+.form-container {
+  @include card;
+  max-width: 600px;
+  margin: $spacing-xl auto;
+}
+
+h2 {
+  color: $text-primary;
+  margin-bottom: $spacing-lg;
+  text-align: center;
+}
+
+.form-group {
+  margin-bottom: $spacing-lg;
+
+  label {
+    display: block;
+    margin-bottom: $spacing-sm;
+    color: $text-secondary;
+    font-weight: $font-weight-medium;
+  }
+
+  input,
+  textarea {
+    @include input-base;
+
+    &.invalid {
+      border-color: $error-color;
+    }
+  }
+}
+
+.error-message {
+  display: block;
+  color: $error-color;
+  font-size: $font-size-sm;
+  margin-top: $spacing-xs;
+}
+
+.alert {
+  padding: $spacing-md;
+  border-radius: $border-radius-sm;
+  margin-bottom: $spacing-md;
+  text-align: center;
+
+  &-success {
+    background-color: $success-bg;
+    color: $success-color;
+    border: 1px solid $success-border;
+  }
+
+  &-error {
+    background-color: $error-bg;
+    color: $error-text;
+    border: 1px solid $error-border;
+  }
+}
+
+.form-actions {
+  display: flex;
+  gap: $spacing-md;
+  margin-top: $spacing-xl;
+}
+
+.btn {
+  @include button-base;
+  flex: 1;
+
+  &-primary {
+    background-color: $primary-color;
+    color: white;
+
+    &:hover:not(:disabled) {
+      background-color: $primary-dark;
+    }
+
+    &:disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
+    }
+  }
+
+  &-secondary {
+    background-color: $secondary-color;
+    color: white;
+
+    &:hover {
+      background-color: $secondary-dark;
+    }
+  }
+}
+

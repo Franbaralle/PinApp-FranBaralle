@@ -1,0 +1,113 @@
+<div class="form-container">
+  <h2>Registro de Nuevo Cliente</h2>
+  
+  <form [formGroup]="clienteForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="nombre">Nombre *</label>
+      <input 
+        type="text" 
+        id="nombre" 
+        formControlName="nombre"
+        [class.invalid]="isFieldInvalid('nombre')"
+        placeholder="Ingrese el nombre"
+      />
+      <span class="error-message" *ngIf="isFieldInvalid('nombre')">
+        {{ getErrorMessage('nombre') }}
+      </span>
+    </div>
+
+    <div class="form-group">
+      <label for="apellido">Apellido *</label>
+      <input 
+        type="text" 
+        id="apellido" 
+        formControlName="apellido"
+        [class.invalid]="isFieldInvalid('apellido')"
+        placeholder="Ingrese el apellido"
+      />
+      <span class="error-message" *ngIf="isFieldInvalid('apellido')">
+        {{ getErrorMessage('apellido') }}
+      </span>
+    </div>
+
+    <div class="form-group">
+      <label for="edad">Edad *</label>
+      <input 
+        type="number" 
+        id="edad" 
+        formControlName="edad"
+        [class.invalid]="isFieldInvalid('edad')"
+        placeholder="Ingrese la edad"
+        min="1"
+        max="120"
+      />
+      <span class="error-message" *ngIf="isFieldInvalid('edad')">
+        {{ getErrorMessage('edad') }}
+      </span>
+    </div>
+
+    <div class="form-group">
+      <label for="fechaNacimiento">Fecha de Nacimiento *</label>
+      <input 
+        type="date" 
+        id="fechaNacimiento" 
+        formControlName="fechaNacimiento"
+        [class.invalid]="isFieldInvalid('fechaNacimiento')"
+      />
+      <span class="error-message" *ngIf="isFieldInvalid('fechaNacimiento')">
+        {{ getErrorMessage('fechaNacimiento') }}
+      </span>
+    </div>
+
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input 
+        type="email" 
+        id="email" 
+        formControlName="email"
+        [class.invalid]="isFieldInvalid('email')"
+        placeholder="ejemplo@correo.com"
+      />
+      <span class="error-message" *ngIf="isFieldInvalid('email')">
+        {{ getErrorMessage('email') }}
+      </span>
+    </div>
+
+    <div class="form-group">
+      <label for="telefono">Teléfono</label>
+      <input 
+        type="tel" 
+        id="telefono" 
+        formControlName="telefono"
+        placeholder="Ingrese el teléfono"
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="direccion">Dirección</label>
+      <textarea 
+        id="direccion" 
+        formControlName="direccion"
+        placeholder="Ingrese la dirección"
+        rows="3"
+      ></textarea>
+    </div>
+
+    <div class="alert alert-success" *ngIf="successMessage">
+      {{ successMessage }}
+    </div>
+
+    <div class="alert alert-error" *ngIf="errorMessage">
+      {{ errorMessage }}
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" [disabled]="loading" class="btn btn-primary">
+        {{ loading ? 'Guardando...' : 'Registrar Cliente' }}
+      </button>
+      <button type="button" class="btn btn-secondary" routerLink="/clientes">
+        Cancelar
+      </button>
+    </div>
+  </form>
+</div>
